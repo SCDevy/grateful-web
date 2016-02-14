@@ -49,7 +49,8 @@ submissionSchema.methods.prettyDate = function() {
 var Submission = mongoose.model('Submission', submissionSchema);
 
 app.get('/api/submissions', function(req, res) {
-    Submission.find(function (err, submission) {
+    Submission.find({}).sort('-date').limit(5).exec(function (err, submission) {
+    // Submission.find(function (err, submission) {
         if (err) return console.error(err);
         res.json(submission);
     })
