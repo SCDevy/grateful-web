@@ -1,12 +1,27 @@
 [
     {
         "id": 1388534400000,
-        "text": "This is a submission.",
+        "text": "Grateful for my family and my friends.",
+        "date": "02.10.2016"
+    },
+    {
+        "id": 1388534400000,
+        "text": "Really appreciative that Jesse Chand helped me out with iOS struggles today.",
+        "date": "02.10.2016"
+    },
+    {
+        "id": 1388534400000,
+        "text": "Grateful for the opportunity to attend TreeHacks this weekend.",
+        "date": "02.10.2016"
+    },
+    {
+        "id": 1388534400000,
+        "text": "Happy about getting my dream job.",
         "date": "02.10.2016"
     },
     {
         "id": 1420070400000,
-        "text": "Another one! Pretty typical submission, just testing to see the height of the element.",
+        "text": "Sometimes, it's really hard to stay positive. Grateful for the people in my life.",
         "date": "02.10.2016"
     }
 ]
