@@ -1,0 +1,116 @@
+html, body {
+    width: 100%; height: 100%;
+    min-width: 960px; min-height: 540px;
+    margin: 0; padding: 0;
+    background: #4cb8c4;
+    background: linear-gradient(to right, #4cb8c4, #3cd3ad);
+    font-family: "Proxima Nova", Helvetica Neue, Helvetica, Arial, sans-serif;
+}
+
+.sidebar {
+    width: 280px; height: 100%;
+    position: absolute;
+    background: rgba(255, 255, 255, 0.95);
+    box-shadow: 3px 0 8px rgba(0, 0, 0, 0.10);
+    z-index: 1;
+}
+
+.logo {
+    width: 280px; height: 280px;
+}
+
+.menu {
+    width: 100%;
+    margin: 0; padding: 0;
+    border-top: 1px solid #efefef;
+}
+
+.menu>li {
+    height: 48px;
+    margin: 0; padding: 0 20px;
+    position: relative;
+    border-bottom: 1px solid #efefef;
+    background: #fff;
+    color: #424242;
+    line-height: 48px;
+    font-size: 18px;
+    letter-spacing: 0.05em;
+    list-style: none;
+    cursor: pointer;
+    user-select: none;
+    -webkit-user-select: none; /* TODO: switch to less + autoprefixer? */
+    transition: all 0.2s ease;
+    -webkit-transition: all 0.2s ease;
+}
+
+.menu>li:hover {
+    background: #fbfbfb;
+}
+
+.menu>.selected {
+    font-weight: bold;
+}
+
+.menu>li>.chevron {
+    right: 20px;
+    position: absolute;
+    font-size: 30px;
+}
+
+.cred {
+    padding: 20px;
+    right: 0; bottom: 0; left: 0;
+    position: absolute;
+    color: rgba(0, 0, 0, 0.2);
+    font-size: 12px;
+    letter-spacing: 0.1em;
+}
+
+.madewithlove {
+    font-weight: bold;
+}
+
+.treehacks {
+    padding-top: 4px;
+}
+
+.treehacks>a {
+    color: inherit;
+}
+
+.container {
+    padding-left: 300px; /* 280px + 20px gutter */
+    top: 0; right: 0; bottom: 0; left: 0;
+    position: absolute;
+    overflow: scroll;
+    z-index: 0;
+}
+
+.content {
+    width: 100%; height: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+.submission {
+    position: absolute;
+    display: inline-block;
+    color: rgba(255, 255, 255, 0.9);
+    text-align: right;
+    overflow: hidden;
+}
+
+.submission>.text {
+    width: 520px;
+    font-size: 28px;
+    font-weight: bold;
+    line-height: 32px;
+    letter-spacing: 0.1em;
+}
+
+.submission>.date {
+    padding-top: 0.3em;
+    font-size: 24px;
+    font-weight: lighter;
+    letter-spacing: 0.1em;
+}
