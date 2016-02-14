@@ -25,10 +25,10 @@ app.use(function(req, res, next) {
 });
 
 if(app.get('env') != 'prod') {
-    DB_URI = 'mongodb://localhost/test';
+    MONGOLAB_URI = 'mongodb://localhost/test';
 }
 
-mongoose.connect(DB_URI);
+mongoose.connect(MONGOLAB_URI);
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function() {
