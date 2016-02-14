@@ -68,7 +68,8 @@ app.post('/api/submissions', function(req, res) {
           if(err) return console.error(err);
           console.log(post);
       });
-    })
+    });
+    res.sendStatus(200);
 });
 
 
