@@ -23,7 +23,7 @@ app.use(function(req, res, next) {
     next();
 });
 
-app.get('/api/comments', function(req, res) {
+app.get('/api/submissions', function(req, res) {
   fs.readFile(COMMENTS_FILE, function(err, data) {
     if (err) {
       console.error(err);

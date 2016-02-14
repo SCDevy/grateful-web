@@ -1,3 +1,4 @@
+var sections = ['takealook', 'whatisgrateful', 'joingrateful'];
 var currentSubmissions = [];
 var dimensions = [$('#content').height(), $('#content').width()];
 
@@ -17,8 +18,21 @@ $(document).ready(function() {
             colors : new Array('#EEEEEE','#FFFFFF','#DDDDDD')
         }));
 
+    $('.menu>li').click(function() {
+        if($(this).hasClass('takealook-button')) {
+            // updateCurrentSubmissions();
+            activeSection(0);
+        }
+        if($(this).hasClass('whatisgrateful-button')) {
+            activeSection(1);
+        }
+        if($(this).hasClass('joingrateful-button')) {
+            activeSection(2);
+        }
+    });
+
     $.ajax({
-        url: '/api/comments',
+        url: '/api/submissions',
         dataType: 'json',
         cache: false,
         success: function(data) {
@@ -44,8 +58,24 @@ $(document).ready(function() {
     });
 });
 
+function activeSection(index) {
+    var newActive = '.' + sections[index];
+
+    for(var i = 0; i < 3; i++) {
+        var current = '.' + sections[i];
+        if($(current + '-button').hasClass('selected') && current != newActive) {
+            $(current + '-button').removeClass('selected');
+            $(newActive + '-button').addClass('selected');
+            $(current).fadeOut(function() {
+                $(newActive).fadeIn();
+            });
+            return;
+        }
+    }
+}
+
 function renderSubmission(data, id, startingPosition) {
-    $('#content').append(function() {
+    $('#takealook').append(function() {
         var text = '<p class="text">&ldquo;' + data.text + '&rdquo;</p>';
         var date = '<div class="date">' + data.date + '</div>';
         // var submission = '<div class="submission" id="' + id + '">' + text + date + '</div>';
@@ -71,14 +101,14 @@ function fadeSubmissions(currentSubmission) {
         });
         if(currentSubmission === currentSubmissions.length - 1) {
             setTimeout(function() {
-                resetSubmissions();
+                updateCurrentSubmissions();
             }, 900);
         }
         else {
             currentSubmission++;
             setTimeout(function() {fadeSubmissions(currentSubmission);}, 1000);
         }
-    }, 4200);
+    }, 3900);
 }
 
 function randomPosition() {
@@ -91,17 +121,13 @@ function randomPosition() {
     return [nh,nw];
 }
 
-function resetSubmissions() {
-    $('.submission').remove();
-    updateCurrentSubmissions();
-}
-
 function updateCurrentSubmissions() {
     $.ajax({
-        url: '/api/comments',
+        url: '/api/submissions',
         dataType: 'json',
         cache: false,
         success: function(data) {
+            $('.submission').remove();
             console.log("updating current submissions...");
             for(var i = 0; i < data.length; i++) {
                 var id = 'submission' + i;

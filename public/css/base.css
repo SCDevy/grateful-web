@@ -7,6 +7,13 @@ html, body {
     font-family: "Proxima Nova", Helvetica Neue, Helvetica, Arial, sans-serif;
 }
 
+h1 {
+    font-size: 42px;
+    font-weight: bold;
+    letter-spacing: 0.1em;
+    line-height: 48px;
+}
+
 .sidebar {
     width: 280px; height: 100%;
     position: absolute;
@@ -90,6 +97,10 @@ html, body {
 .content {
     width: 100%; height: 100%;
     position: relative;
+    color: rgba(255, 255, 255, 0.9);
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .canvasBubbles {
@@ -97,10 +108,13 @@ html, body {
     position: absolute;
 }
 
+.canvasBubbles>canvas {
+    z-index: 0;
+}
+
 .submission {
     position: absolute;
     display: inline-block;
-    color: rgba(255, 255, 255, 0.9);
     text-align: right;
     overflow: hidden;
 }
@@ -118,4 +132,25 @@ html, body {
     font-size: 24px;
     font-weight: lighter;
     letter-spacing: 0.1em;
+}
+
+.whatisgrateful, .joingrateful {
+    display: none;
+    text-align: center;
+    z-index: 2;
+}
+
+.whatisgrateful>h1, .joingrateful>h1, .whatisgrateful>p, .joingrateful>p {
+    margin: 0 auto;
+}
+
+.whatisgrateful>h1, .joingrateful>h1 {
+    width: 540px;
+}
+
+.whatisgrateful>p, .joingrateful>p {
+    width: 520px;
+    padding-top: 20px;
+    font-size: 20px;
+    line-height: 28px;
 }
