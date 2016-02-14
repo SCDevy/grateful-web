@@ -1,6 +1,22 @@
 var currentSubmissions = [];
+var dimensions = [$('#content').height(), $('#content').width()];
+
+// window.onresize = function(event) {
+// 	dimensions = [$('#content').height(), $('#content').width()];
+// }
 
 $(document).ready(function() {
+    bubblesMain(new Object({
+            type : 'radial',
+            revolve : 'center',
+            minSpeed : 50,
+            maxSpeed : 100,
+            minSize : 50,
+            maxSize : 150,
+            num : 30,
+            colors : new Array('#EEEEEE','#FFFFFF','#DDDDDD')
+        }));
+
     $.ajax({
         url: '/api/comments',
         dataType: 'json',
@@ -11,8 +27,8 @@ $(document).ready(function() {
                 currentSubmissions[i] = id;
                 if(i === 0) {
                     startingPosition = [
-                        $('#content').height() / 2 - 80,
-                        $('#content').width() / 2 - 260
+                        dimensions[0] / 2 - 80,
+                        dimensions[1] / 2 - 260
                     ];
                 }
                 else {
@@ -50,22 +66,22 @@ function fadeSubmissions(currentSubmission) {
     submission.fadeIn(900);
     setTimeout(function() {
         var newPosition = randomPosition();
-        submission.fadeOut(900, function() {
+        submission.fadeOut(1000, function() {
             submission.css({'top': newPosition[0], 'left': newPosition[1]});
         });
         if(currentSubmission === currentSubmissions.length - 1) {
-            fadeSubmissions(0);
+            setTimeout(function() {fadeSubmissions(0);}, 1000);
         }
         else {
             currentSubmission++;
-            fadeSubmissions(currentSubmission);
+            setTimeout(function() {fadeSubmissions(currentSubmission);}, 1000);
         }
     }, 4200);
 }
 
 function randomPosition() {
-    var h = $('#content').height() - 160 - 40; // extra padding a four-line submission element
-    var w = $('#content').width() - 520 - 40; // width of submission element
+    var h = dimensions[0] - 160 - 40; // extra padding a four-line submission element
+    var w = dimensions[1] - 520 - 40; // width of submission element
 
     var nh = Math.floor(Math.random() * h) + 20;
     var nw = Math.floor(Math.random() * w) + 20;
