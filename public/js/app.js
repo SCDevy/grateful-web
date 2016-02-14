@@ -35,8 +35,8 @@ $(document).ready(function() {
                     var startingPosition = randomPosition();
                 }
                 renderSubmission(data[i], id, startingPosition);
-                fadeSubmissions(0);
             }
+            fadeSubmissions(0);
         },
         error: function(xhr, status, err) {
             console.error(this.url, status, err.toString());
@@ -70,7 +70,9 @@ function fadeSubmissions(currentSubmission) {
             submission.css({'top': newPosition[0], 'left': newPosition[1]});
         });
         if(currentSubmission === currentSubmissions.length - 1) {
-            setTimeout(function() {fadeSubmissions(0);}, 1000);
+            setTimeout(function() {
+                resetSubmissions();
+            }, 900);
         }
         else {
             currentSubmission++;
@@ -87,4 +89,29 @@ function randomPosition() {
     var nw = Math.floor(Math.random() * w) + 20;
 
     return [nh,nw];
+}
+
+function resetSubmissions() {
+    $('.submission').remove();
+    updateCurrentSubmissions();
+}
+
+function updateCurrentSubmissions() {
+    $.ajax({
+        url: '/api/comments',
+        dataType: 'json',
+        cache: false,
+        success: function(data) {
+            console.log("updating current submissions...");
+            for(var i = 0; i < data.length; i++) {
+                var id = 'submission' + i;
+                var startingPosition = randomPosition();
+                renderSubmission(data[i], id, startingPosition);
+            }
+            fadeSubmissions(0);
+        },
+        error: function(xhr, status, err) {
+            console.error(this.url, status, err.toString());
+        }
+    });
 }
