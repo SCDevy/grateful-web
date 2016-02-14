@@ -24,7 +24,11 @@ app.use(function(req, res, next) {
     next();
 });
 
-mongoose.connect('mongodb://localhost/test');
+if(app.get('env') != 'prod') {
+    DB_URI = 'mongodb://localhost/test';
+}
+
+mongoose.connect(DB_URI);
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function() {
