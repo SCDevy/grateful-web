@@ -76,8 +76,9 @@ function activeSection(index) {
 
 function renderSubmission(data, id, startingPosition) {
     $('#takealook').append(function() {
+        var dateObj = new Date(data.date);
         var text = '<p class="text">&ldquo;' + data.text + '&rdquo;</p>';
-        var date = '<div class="date">' + data.date + '</div>';
+        var date = '<div class="date">' + dateObj.getMonth() + '.' + dateObj.getDate() + '.' + dateObj.getFullYear() + '</div>';
         // var submission = '<div class="submission" id="' + id + '">' + text + date + '</div>';
         var submission = '<div style="display: none; top:' + startingPosition[0] + 'px; left:' + startingPosition[1] + 'px;" class="submission" id="' + id + '">' + text + date + '</div>';
         return submission;
@@ -139,5 +140,20 @@ function updateCurrentSubmissions() {
         error: function(xhr, status, err) {
             console.error(this.url, status, err.toString());
         }
+    });
+}
+
+function postIt(submission) {
+    $.ajax({
+      url: '/api/submissions',
+      dataType: 'json',
+      type: 'POST',
+      data: submission,
+      success: function(data) {
+        console.log('success!');
+      },
+      error: function(xhr, status, err) {
+        console.error(this.props.url, status, err.toString());
+      }
     });
 }

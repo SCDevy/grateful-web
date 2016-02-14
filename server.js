@@ -2,6 +2,7 @@ var fs = require('fs');
 var path = require('path');
 var express = require('express');
 var bodyParser = require('body-parser');
+var mongoose = require('mongoose');
 var app = express();
 
 var COMMENTS_FILE = path.join(__dirname, 'comments.json');
@@ -23,40 +24,44 @@ app.use(function(req, res, next) {
     next();
 });
 
-app.get('/api/submissions', function(req, res) {
-  fs.readFile(COMMENTS_FILE, function(err, data) {
-    if (err) {
-      console.error(err);
-      process.exit(1);
-    }
-    res.json(JSON.parse(data));
-  });
+mongoose.connect('mongodb://localhost/test');
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function() {
+
 });
 
-app.post('/api/comments', function(req, res) {
-  fs.readFile(COMMENTS_FILE, function(err, data) {
-    if (err) {
-      console.error(err);
-      process.exit(1);
-    }
-    var comments = JSON.parse(data);
-    // NOTE: In a real implementation, we would likely rely on a database or
-    // some other approach (e.g. UUIDs) to ensure a globally unique id. We'll
-    // treat Date.now() as unique-enough for our purposes.
-    var newComment = {
-      id: Date.now(),
-      author: req.body.author,
-      text: req.body.text,
-    };
-    comments.push(newComment);
-    fs.writeFile(COMMENTS_FILE, JSON.stringify(comments, null, 4), function(err) {
-      if (err) {
-        console.error(err);
-        process.exit(1);
-      }
-      res.json(comments);
-    });
-  });
+var submissionSchema = mongoose.Schema({
+    text: String,
+    date: { type: Date, default: Date.now }
+});
+submissionSchema.methods.prettyDate = function() {
+    var prettyDate = this.date.getMonth() + 1 + '.' + this.date.getDate() + '.' + this.date.getFullYear();
+    return prettyDate;
+}
+var Submission = mongoose.model('Submission', submissionSchema);
+
+app.get('/api/submissions', function(req, res) {
+    Submission.find(function (err, submission) {
+        if (err) return console.error(err);
+        res.json(submission);
+    })
+});
+
+app.post('/api/submissions', function(req, res) {
+    Submission.find(function (err, submission) {
+      if (err) return console.error(err);
+
+      var newSubmission = {
+          text: req.body.text
+      };
+
+      var post = new Submission(newSubmission);
+      post.save(function(err, post) {
+          if(err) return console.error(err);
+          console.log(post);
+      });
+    })
 });
 
 

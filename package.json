@@ -5,7 +5,8 @@
   "main": "server.js",
   "dependencies": {
     "body-parser": "^1.4.3",
-    "express": "^4.4.5"
+    "express": "^4.4.5",
+    "mongoose": "^4.4.3"
   },
   "devDependencies": {},
   "scripts": {
@@ -21,7 +22,7 @@
     "url": "https://github.com/SCDevy/grateful-web/issues"
   },
   "homepage": "https://github.com/SCDevy/grateful-web",
-  "engines" : {
-    "node" : "0.12.x"
+  "engines": {
+    "node": "0.12.x"
   }
 }
